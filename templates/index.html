@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job Matcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 720px;
+            line-height: 1.5;
+            color: #333;
+            background: #f7f9fc;
+        }
+
+        h1, h2 {
+            color: #222;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #2a9df4;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2177cc;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            min-height: 60px;
+        }
+
+        li {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resume Scanner and Job Matcher</h1>
+    <form action="/match" method="post">
+        <label for="resume_text">Paste your resume text:</label>
+        <textarea id="resume_text" name="resume_text" required placeholder="E.g. Experienced Data Scientist with Python and Machine Learning skills."></textarea>
+        <button type="submit">Match Jobs</button>
+    </form>
+
+    <h2>Matched Jobs</h2>
+    <ul>
+        {% if jobs %}
+            {% for job, score in jobs %}
+                <li>{{ job.title }} - Match Score: {{ '%.3f' | format(score) }}</li>
+            {% endfor %}
+        {% else %}
+            <li>Please submit your resume to see matching jobs.</li>
+        {% endif %}
+    </ul>
+</body>
+</html>
